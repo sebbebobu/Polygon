@@ -3,10 +3,10 @@ package spaceinv.test;
 import spaceinv.model.IDrawable;
 
 public class Ground implements IDrawable {
-    public double height;
-    public double width;
-    public double x;
-    public double y;
+    private double height;
+    private double width;
+    private double x;
+    private double y;
     public Ground(int ground_x, int ground_y, int ground_width, int ground_Height) {
         height = ground_Height;
         width = ground_width;

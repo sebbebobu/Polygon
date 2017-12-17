@@ -26,11 +26,12 @@ public class TestFx extends Application {
     Ground ground;
 
     public void update() {
+
         ship.move();
-        /*TestProjectile t = ship.fire();
+        TestProjectile t = (TestProjectile) ship.fire();
         if( t != null){
             projs.add(t);
-        }*/
+        }
 
         for (TestProjectile p : projs) {
             p.move();

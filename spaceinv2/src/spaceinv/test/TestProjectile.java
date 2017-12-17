@@ -1,22 +1,23 @@
 package spaceinv.test;
 
+import spaceinv.model.ICopyable;
 import spaceinv.model.IDrawable;
 import spaceinv.model.IMovable;
 
-public class TestProjectile implements IMovable, IDrawable {
-    double x;
-    double y;
-    double dX;
-    double dY;
-    double height;
-    double width;
+public class TestProjectile implements IMovable, IDrawable, ICopyable {
+    double x;                   // Should be private, but is used in TestShip.
+    double y;                   //                  - '' -
+    private double dX = 0;
+    private double dY = 0;
+    private double height = 5;
+    double width = 5;           //                  - '' -
 
     public TestProjectile(){
 
     }
     @Override
     public void move() {
-        y++;
+        y--;
     }
 
     @Override
@@ -57,5 +58,10 @@ public class TestProjectile implements IMovable, IDrawable {
     @Override
     public double getHeight() {
         return height;
+    }
+
+    @Override
+    public Object copyOf() {
+        return this; // Should return exact copy of itself.
     }
 }
