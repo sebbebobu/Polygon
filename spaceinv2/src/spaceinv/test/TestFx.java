@@ -22,8 +22,8 @@ import static java.lang.System.out;
 public class TestFx extends Application {
 
     TestShip ship;
-    //List<TestProjectile> projs = new ArrayList<>();
-    //Ground ground;
+    List<TestProjectile> projs = new ArrayList<>();
+    Ground ground;
 
     public void update() {
         ship.move();
@@ -32,9 +32,9 @@ public class TestFx extends Application {
             projs.add(t);
         }*/
 
-        /*for (TestProjectile p : projs) {
+        for (TestProjectile p : projs) {
             p.move();
-        }*/
+        }
         render();
     }
 
@@ -44,24 +44,24 @@ public class TestFx extends Application {
         Image si = AssetManager.getImageForObject(ship);
         gc.drawImage(si, ship.getMinX(), ship.getMinY());
 
-        /*
+
         for (TestProjectile p : projs) {
             Image pi = AssetManager.getImageForObject(p);
             gc.drawImage(pi, p.getMinX(), p.getMinY());
         }
-        */
-        /*
+
+
         Image g = AssetManager.getImageForObject(ground);
-         gc.drawImage(g, ground.getMinX(), ground.getMinY(), ground.getWidth(), ground.getHeight());
-         */
+        gc.drawImage(g, ground.getMinX(), ground.getMinY(), ground.getWidth(), ground.getHeight());
+
     }
 
     public void init() {
         ship = new TestShip();
-        //TestProjectile p = new TestProjectile...
-        //ship.setProjectile(p);
-        //projs.add(p);
-        //ground = new Ground(0, 400-20, 400, 20);
+        TestProjectile p = new TestProjectile();
+        ship.setProjectile(p);
+        projs.add(p);
+        ground = new Ground(0, 400-20, 400, 20);
 
     }
 

@@ -107,19 +107,19 @@ Workflow
     - Let ship fire i.e.: create a copy of it's projectile, set projectile x and y
       to ships actual x and y add finally add result of call to fire() to list of projectiles.
 
-4.  Add collisions detection.
+4.  Add collision detection.
     - Create a class Ground implementing IDrawable.
     - Add to class a method intersects that checks if a test projectile collides with Ground. If
-      so remove projectile form list.
+      so remove projectile from list.
     - Use test/Test to do logical testing of collision detection.
 
 5.  Now refactoring: There's a lot of common code for ship, projectile and ground.
     Create abstract base classes to factor out common code. Let created classes inherit from base classes.
-    Try to collect each abstraction (interface) in separate base classe. Have a talk with assistants before
+    Try to collect each abstraction (interface) in separate base classes. Have a talk with assistants before
     continuing! This is the main point of this assignment!
 
 6.  Now we're going for the full OO -model of the game. The model is constructed in the Factory class.
-    - Copy you're abstract base classes to the model directory.
+    - Copy your abstract base classes to the model directory.
     - Create classes that extends the base classes
         - All classes should be very small because most of the code resides in the base classes.
         - In statics directory we need: Ground (reuse it) and OuterSpace as collision detectors.
