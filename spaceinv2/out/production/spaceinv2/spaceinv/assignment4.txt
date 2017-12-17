@@ -1,0 +1,143 @@
+*** Assignment 4, Space invaders ***
+
+We're going to do a somewhat simplified version of the classical game Space invaders
+See https://www.youtube.com/watch?v=axlx3o0codc
+
+To run the program, run the SpaceInvGUI file (later ... need to implement things first).
+This is a heavily graphical program hard to test, but we'll try!
+
+Paper and pen
+--------------
+This application is to complex to have in your head.
+Use paper and pen to sketch anything that can help
+to grasp it.
+
+Directory layout
+----------------
+The application is divided over a few directories (to put related classes etc. in same location)
+
+    - /assets: Images and sounds.
+    - /model: Classes for the core logic of the game, the OO-model
+    - /model/projectiles: Projectiles fires by gun and spaceships
+    - /model/ships: The space ships
+    - /model/statics: Static objects, like ground.
+    - /service: Services used by program
+    - /test: Classes for testing
+    - /view: Visible parts (graphical user interface, GUI) and asset handling.
+
+Interfaces
+----------
+- ICopyable<T>, something that can make a copy of type T
+- IDrawable, a contract for anything that could be drawn on screen
+- IMoveable, something that can move
+- IShootable<T>, something that can shoot T's
+
+Object model
+------------
+- The object model is handled by the class SpaceInv representing the over all game.
+  Class contains the "game loop", the method responsible for moving objects and checking collisions.
+- SpaceInv is composed of a ground, an outerSpace, ships, projectiles and a gun.
+- Ground and outerSpace are used as collision detectors for projectiles. If hit
+  ground or outerSpace the projectile will be destroyed.
+- SpaceInv also holds a number of "administrative" variables for example player points.
+
+Factory class
+-------------
+There's a static utility class, Factory, responsible for building the full OO model
+See call in SpaceInvGUI, method newGame()
+
+GUI
+---
+This is a graphical event driven JavaFX program. All graphics implemented.
+All graphics and event code is in SpaceInvGUI file (also calls to animations and sound).
+
+NOTE: Anything that should be rendered must implement IDrawable!
+NOTE: Names of classes and images must match. Class TestShip will match image testship.png
+(i.e. all lowercase, only png supported). This is automatically handled (already implemented).
+
+
+Functional requirements
+-----------------------
+Program should work similar to the YouTube sample. Some points:
+
+- There should be a formation of ships moving similar to the YouTube clip
+- The ships should increase the speed.
+- The ships should drop bombs randomly.
+- There should be a movable gun which can fire a projectile (only one projectile
+  active at the time)
+- If gun projectile hit ship or any projectile both will be destroyed
+- Game points for player should be displayed. All ships earn different points.
+- There is no need for shelters (you decide)
+- No need for "lives", if cannon hit by ship projectile or ship hits ground game is over
+
+Non-functional requirements
+---------------------------
+Program should have a very good OO-structure
+- No arrays, use lists!
+- No code duplication.
+- No protected, only private!
+- Objects should be handled at highest possible abstraction level
+- Use instanceof to check individual objects if needed (i.e. heterogeneous collections)
+- Any composed object should be initialized by the constructor
+
+Timing
+------
+JavFX works at a certain rate (frame rate, about 60 frames/sec.). We can't change this.
+- If things should move faster/slower, in/decrease the objects speed.
+- Or if things should move slower make i move more seldom.
+- This probably has to be adjusted later when application is possible to run
+
+Workflow
+--------
+
+1.  First goal is the create a ship and make it move. This scenario is run by the test program TestFx
+
+    a) Create a class TestShip in directory test. The class should implement IDrawable, IMovable.
+       Uncomment in TestFx, create a ship object and make it move over screen (just left to right).
+       NOTE: IntelliJ can generate methods, click red light bulb.
+
+    b) Make ship move as in game (i.e. distance right, distance down, distance left, etc.)
+
+2.  a) Create a class TestProjectile in the same manner. Create a projectile object and make it
+       move downwards
+
+3.  Make ship fire a projectile randomly.
+    - Let projectile implement ICopyable<TestProjectile>. Method returns a full copy of the object.
+    - Let ship implement IShootable<TestProjectile>.
+    - Let ship fire i.e.: create a copy of it's projectile, set projectile x and y
+      to ships actual x and y add finally add result of call to fire() to list of projectiles.
+
+4.  Add collisions detection.
+    - Create a class Ground implementing IDrawable.
+    - Add to class a method intersects that checks if a test projectile collides with Ground. If
+      so remove projectile form list.
+    - Use test/Test to do logical testing of collision detection.
+
+5.  Now refactoring: There's a lot of common code for ship, projectile and ground.
+    Create abstract base classes to factor out common code. Let created classes inherit from base classes.
+    Try to collect each abstraction (interface) in separate base classe. Have a talk with assistants before
+    continuing! This is the main point of this assignment!
+
+6.  Now we're going for the full OO -model of the game. The model is constructed in the Factory class.
+    - Copy you're abstract base classes to the model directory.
+    - Create classes that extends the base classes
+        - All classes should be very small because most of the code resides in the base classes.
+        - In statics directory we need: Ground (reuse it) and OuterSpace as collision detectors.
+        - In ships directory we need: classes BattleCruiser, Bomber and Frigate.
+        - In projectiles directory we need classes Bomb and Rocket.
+        - In model directory we need a Gun.
+    - Implement methods in Factory
+        - NOTE: Later we have to adjust the movement for moving objects
+        - NOTE: Start out with a limited number of objects.
+        - NOTE: Must adjust constructor of SpaceInv
+    - Try to test in test/Test class that the Factory works
+    - After this, see the call to Factory.buildModel() in SpecInvGUI init(). This should now work!
+
+7.  Now start with the overall game logic i.e. method update in SpaceInv.
+    Try to use functional decomposition BUT, also have to decide in which class the method belongs.
+
+    - NOTE: Normally the method belongs to where the data (variables) are.
+    - NOTE: Have to use the EventService here to inform GUI whats happening.
+      See handleSIEvent in SpaceInvGUI.
+
+8.  Optional. Make game as fun as possible!

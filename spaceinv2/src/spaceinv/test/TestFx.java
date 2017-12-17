@@ -21,12 +21,12 @@ import static java.lang.System.out;
 
 public class TestFx extends Application {
 
-    //TestShip ship;
+    TestShip ship;
     //List<TestProjectile> projs = new ArrayList<>();
     //Ground ground;
 
     public void update() {
-        //ship.move();
+        ship.move();
         /*TestProjectile t = ship.fire();
         if( t != null){
             projs.add(t);
@@ -40,10 +40,10 @@ public class TestFx extends Application {
 
     public void render() {
         gc.clearRect(0, 0, 400, 400);
-        /*
+
         Image si = AssetManager.getImageForObject(ship);
         gc.drawImage(si, ship.getMinX(), ship.getMinY());
-        */
+
         /*
         for (TestProjectile p : projs) {
             Image pi = AssetManager.getImageForObject(p);
@@ -57,7 +57,7 @@ public class TestFx extends Application {
     }
 
     public void init() {
-        //ship = new TestShip ...
+        ship = new TestShip();
         //TestProjectile p = new TestProjectile...
         //ship.setProjectile(p);
         //projs.add(p);
