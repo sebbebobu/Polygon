@@ -5,15 +5,18 @@ import spaceinv.model.IMovable;
 import spaceinv.model.IShootable;
 
 public class TestShip implements IDrawable,IMovable,IShootable {
-    private double x = 0;
-    private double y = 150;
-    private double width = 40;
-    private double height = 108;
-    private double dX;
-    private double dY;
+    private double x;
+    private double y;
+    private double width;
+    private double height;
+    private double dx;
+    private double dy;
 
     public TestShip(){
-
+        x = 0;
+        y = 150;
+        width = 40;
+        height = 108;
     }
     @Override
     public double getMinX() {
@@ -45,31 +48,31 @@ public class TestShip implements IDrawable,IMovable,IShootable {
     }
     @Override
     public void setDx(double dx) {
-        dX = dx;
+        this.dx = dx;
     }
     @Override
     public void setDy(double dy) {
-        dY = dy;
+        this.dy = dy;
     }
     @Override
     public double getDx() {
-        return dX;
+        return dx;
     }
     @Override
     public double getDy() {
-        return dY;
+        return dy;
     }
     @Override
     public Object fire() {
         TestProjectile t = new TestProjectile();
-        t.x = (this.getMinX()+(this.getWidth()/2)) - t.width/2; // Correct way for x-value - but x should be inaccessible.
-        t.y = this.getMinY();
+        t.x = (this.getMinX()+(this.getWidth()/2)) - t.getWidth()/2; // Correct way for x-value - but x should be inaccessible.
+        t.y = this.getMinY(); // Temporary - y should be inaccessible.
         return t;
     }
     @Override
     public void setProjectile(Object projectile) {
         if (projectile.getClass().equals(TestProjectile.class)){
-            ((TestProjectile) projectile).setDx((this.getMinX() + (this.getWidth() / 2)) - (((TestProjectile) projectile).width / 2));
+            ((TestProjectile) projectile).setDx((this.getMinX() + (this.getWidth() / 2)) - (((TestProjectile) projectile).getWidth() / 2));
             ((TestProjectile) projectile).setDy(this.getMinY());
         }
     }

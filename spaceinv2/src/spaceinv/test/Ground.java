@@ -7,13 +7,15 @@ public class Ground implements IDrawable {
     private double width;
     private double x;
     private double y;
-    public Ground(int ground_x, int ground_y, int ground_width, int ground_Height) {
-        height = ground_Height;
-        width = ground_width;
-        x = ground_x;
-        y = ground_y;
+    public Ground(int x, int y, int width, int height) {
+        this.height = height;
+        this.width = width;
+        this.x = x;
+        this.y = y;
     }
+    public void intersects(){
 
+    }
     @Override
     public double getMinX() {
         return x;

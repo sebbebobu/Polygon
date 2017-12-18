@@ -7,10 +7,10 @@ import spaceinv.model.IMovable;
 public class TestProjectile implements IMovable, IDrawable, ICopyable {
     double x;                   // Should be private, but is used in TestShip.
     double y;                   //                  - '' -
-    private double dX = 0;
-    private double dY = 0;
+    private double dx = 0;
+    private double dy = 0;
     private double height = 5;
-    double width = 5;           //                  - '' -
+    private double width = 5;   // Now fixed.
 
     public TestProjectile(){
 
@@ -22,22 +22,22 @@ public class TestProjectile implements IMovable, IDrawable, ICopyable {
 
     @Override
     public void setDx(double dx) {
-        dX = dx;
+        this.dx = dx;
     }
 
     @Override
     public void setDy(double dy) {
-        dY = dy;
+        this.dy = dy;
     }
 
     @Override
     public double getDx() {
-        return dX;
+        return dx;
     }
 
     @Override
     public double getDy() {
-        return dY;
+        return dy;
     }
 
     @Override
