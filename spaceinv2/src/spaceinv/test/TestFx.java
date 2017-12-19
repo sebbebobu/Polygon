@@ -8,12 +8,13 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import spaceinv.model.Ground;
+import spaceinv.model.TestProjectile;
+import spaceinv.model.TestShip;
 import spaceinv.view.AssetManager;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.lang.System.out;
 
 /*
     Visual testing with FX

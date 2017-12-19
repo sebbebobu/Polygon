@@ -142,7 +142,7 @@ public class SpaceInvGUI extends Application {
     }
 
     // See renderGame
-    private boolean renderDebug = false; //true;  <----------------- Uncomment to debug graphics!!
+    private boolean renderDebug = true; //true;  <----------------- Uncomment to debug graphics!!
 
     private void renderGame(GraphicsContext g) {
         g.clearRect(0, 0, WIDTH, HEIGHT);
