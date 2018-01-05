@@ -1,18 +1,21 @@
 package spaceinv.model;
 
 public abstract class AbstractMovableObject extends AbstractGameObject implements IMovable {
-    private double dx, dy;
-
+    public double dx, dy;
+    public AbstractMovableObject(double x, double y, double width, double height, double dx, double dy) {
+        super(x,y, width, height);
+        this.dx = dx;
+        this.dy = dy;
+    }
     @Override
-    public void move() {
-        x++; // Move ship left to right.
+    public  void move()
+    {
+        //x++; // Move ship left to right.
 
         // Correct way to move ship WITH WORKING INPUTS ... I think.
-        //this.x += this.getDx;
-        //this.y += this.getDy;
+        setY(getMinY() + getDy());
+        //this.setY(this.getMinY() + this.getDy());
 
-        //if(this.getDx > 0)this.setDx(this.getDx()--); // Fixed, now handles negative numbers.
-        //if(this.getDy > 0)this.setDy(this.getDy()--);
     }
 
     @Override

@@ -26,7 +26,6 @@ public class ImageService {
         return new Image(url.toString(), requestedWidth, requestedHeight, true, true);
     }
 
-    // TODO
     /*
     public static Image getXplosion() { //(String fileName, double requestedWidth, double requestedHeight) {
         URL url = ImageService.class.getResource(imageDir + "explosion.gif");

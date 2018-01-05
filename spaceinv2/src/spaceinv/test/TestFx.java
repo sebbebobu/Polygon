@@ -1,24 +1,8 @@
 package spaceinv.test;
 
-import javafx.animation.AnimationTimer;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
-import spaceinv.model.Ground;
-import spaceinv.model.TestProjectile;
-import spaceinv.model.TestShip;
-import spaceinv.view.AssetManager;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /*
     Visual testing with FX
- */
+
 
 public class TestFx extends Application {
 
@@ -64,7 +48,6 @@ public class TestFx extends Application {
         ship.setProjectile(p);
         projs.add(p);
         ground = new Ground(0, 400-20, 400, 20);
-
     }
 
     private GraphicsContext gc;
@@ -86,5 +69,6 @@ public class TestFx extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         timer.start();
-    }
 }
+    }*/
+

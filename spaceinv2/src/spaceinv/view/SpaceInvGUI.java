@@ -27,7 +27,6 @@ import spaceinv.service.EventService;
 
 import java.util.List;
 
-import static java.lang.System.out;
 import static spaceinv.model.SpaceInv.HEIGHT;
 import static spaceinv.model.SpaceInv.WIDTH;
 import static spaceinv.service.EventService.SIEvent;
@@ -40,11 +39,9 @@ import static spaceinv.service.EventService.SIEvent;
  *
  * See: https://www.youtube.com/watch?v=axlx3o0codc
  *
- *  TODO : Not much but see below
  *
  */
 public class SpaceInvGUI extends Application {
-
     private SpaceInv spaceInv;          // The game
     private boolean running = false;    // Is game running?
 
@@ -57,16 +54,24 @@ public class SpaceInvGUI extends Application {
         KeyCode kc = event.getCode();
         switch (kc) {
             case LEFT:
-                 // TODO move gun left
+                if(spaceInv.getGun().getMinX()>0)
+                    spaceInv.getGun().setDx(-5);
+                else
+                    spaceInv.getGun().setDx(0);
                 break;
             case RIGHT:
-                // TODO move gun right
+                if(spaceInv.getGun().getMinX() + spaceInv.getGun().getWidth() < WIDTH)
+                    spaceInv.getGun().setDx(5);
+                else
+                    spaceInv.getGun().setDx(0);
                 break;
             case SPACE:
-               // TODO fire gun
+                spaceInv.fireGun();
                 break;
             default:  // Nothing
         }
+        spaceInv.getGun().move();
+
     }
 
     private void keyReleased(KeyEvent event) {
@@ -76,11 +81,14 @@ public class SpaceInvGUI extends Application {
         KeyCode kc = event.getCode();
         switch (kc) {
             case LEFT:
+                spaceInv.getGun().setDx(0);
             case RIGHT:
-                // TODO
+                spaceInv.getGun().setDx(0);
                 break;
             default: // Nothing
+                break;
         }
+        spaceInv.getGun().move();
     }
 
     // --- Handling events coming form the model -----
@@ -94,10 +102,11 @@ public class SpaceInvGUI extends Application {
             AssetManager.getSound("rocket").play(0.1);
         } else if (evt.type == EventService.Type.BOMB_HIT_GROUND) {
             AssetManager.getSound("explosion2").play(0.1);
-        } else if (evt.type == EventService.Type.BOMB_HIT_GUN) {
+        } else if (evt.type == EventService.Type.BOMB_HIT_GUN || evt.type == EventService.Type.SHIP_HIT_GROUND) {
             IDrawable a = (IDrawable) evt.data;
             renderExplosion(a.getMinX(), a.getMinY());
-            // TODO You decide how game over is handled
+            System.out.print("Git gud");
+
         }
     }
 
@@ -142,7 +151,7 @@ public class SpaceInvGUI extends Application {
     }
 
     // See renderGame
-    private boolean renderDebug = true; //true;  <----------------- Uncomment to debug graphics!!
+    private boolean renderDebug = false;// TODO //true;  <----------------- Uncomment to debug graphics!!
 
     private void renderGame(GraphicsContext g) {
         g.clearRect(0, 0, WIDTH, HEIGHT);

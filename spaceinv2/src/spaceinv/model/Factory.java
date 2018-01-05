@@ -1,5 +1,14 @@
 package spaceinv.model;
 
+import spaceinv.projectiles.Bomb;
+import spaceinv.projectiles.Rocket;
+import spaceinv.ships.BattleCruiser;
+import spaceinv.ships.Bomber;
+import spaceinv.ships.EnemyShip;
+import spaceinv.ships.Frigate;
+import spaceinv.statics.Ground;
+import spaceinv.statics.OuterSpace;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +26,7 @@ public class Factory {
     private static final double SHIP_HEIGHT = 30;
     private static final double X_OFFSET = 5;    // Between ships
     private static final double Y_OFFSET = 5;
-    private static final double GROUND_HEIGT = 20;
+    private static final double GROUND_HEIGHT = 20;
 
     private static final double DEFAULT_DX = 3;  // Default speed
     private static final double DEFAULT_DY = 7;
@@ -29,7 +38,11 @@ public class Factory {
 
         double gunWidth = 40;
         double gunHeight = 40;
-        // TODO
+
+        OuterSpace os = new OuterSpace(0,0,800,5);
+        Ground gr = new Ground(0,HEIGHT-GROUND_HEIGHT,WIDTH,GROUND_HEIGHT);
+        Gun gun = new Gun(WIDTH/2,HEIGHT-GROUND_HEIGHT-gunHeight,gunWidth,gunHeight,0,0);
+
 
         String[] shipNames = {BattleCruiser.class.getSimpleName(), BattleCruiser.class.getSimpleName(),
                 Bomber.class.getSimpleName(), Bomber.class.getSimpleName(), Frigate.class.getSimpleName()};
@@ -37,23 +50,23 @@ public class Factory {
 
         //System.out.println(shipNames[0]); // - Actually prints out Name of object's Class!
 
-        //bombs.add(new Bomb(0, 0, 10, 10, 2)); // WTF is dis
-
-        List<AbstractShootableObject> ships = Factory.buildFormation(shipNames, bombs, 3);
-        return new SpaceInv();
+        bombs.add(new Bomb(0, 0, 10, 10, 0)); // WTF is dis!
+        gun.setProjectile(new Rocket(0,0,5,5,-10));
+        List<EnemyShip> ships = Factory.buildFormation(shipNames, bombs, 2);
+        return new SpaceInv(os,gr,gun,ships);
 
         //return null;
     }
 
 
-    private static List<AbstractShootableObject> buildFormation(String[] shipNames, List<Bomb> bombs,
+    private static List<EnemyShip> buildFormation(String[] shipNames, List<Bomb> bombs,
                                                   int nCols){
-        List<AbstractShootableObject> ships = new ArrayList<>();  // TODO
+        List<EnemyShip> ships = new ArrayList<>();
         double x = X_MARGIN;
         double y = 0;
         for (String name : shipNames) {
             for (int i = 0; i < nCols; i++) {
-                AbstractShootableObject s = getShipForName(name, x, y, SHIP_WIDTH, SHIP_HEIGHT, DEFAULT_DX, DEFAULT_DY);
+                EnemyShip s = getShipForName(name, x, y, SHIP_WIDTH, SHIP_HEIGHT, DEFAULT_DX, DEFAULT_DY);
                 s.setProjectile(bombs.get(0));
                 ships.add(s);
                 x = x + SHIP_WIDTH + X_OFFSET;
@@ -66,16 +79,16 @@ public class Factory {
 
 
     // Convert ship names to objects
-    private static AbstractShootableObject getShipForName(String name, double x, double y,
+    private static EnemyShip getShipForName(String name, double x, double y,
                                              double shipWidth, double shipHeight,
                                              double dx, double dy) {
         switch (name) {
             case "BattleCruiser":
-                return null; // TODO
+                return new BattleCruiser(x,y,shipWidth,shipHeight,dx,dy);
             case "Frigate":
-                return null; // TODO
+                return new Frigate(x,y,shipWidth,shipHeight,dx,dy);
             case "Bomber":
-                return null; // TODO
+                return new Bomber(x,y,shipWidth,shipHeight,dx,dy);
             default:
                 throw new IllegalArgumentException("No such ship");
         }

@@ -32,7 +32,7 @@ public class EventService {
     public static class SIEvent {
 
         public final Type type;
-        public final Object data;  // TODO not used
+        public final Object data;
 
         public SIEvent(Type type, Object data) {
             this.type = type;

@@ -3,14 +3,14 @@ package spaceinv.view;
 import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
 import spaceinv.model.IDrawable;
-import spaceinv.service.SoundService;
 import spaceinv.service.ImageService;
-
-import static spaceinv.model.SpaceInv.HEIGHT;
-import static spaceinv.model.SpaceInv.WIDTH;
+import spaceinv.service.SoundService;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static spaceinv.model.SpaceInv.HEIGHT;
+import static spaceinv.model.SpaceInv.WIDTH;
 
 /*
    Class loading and holding assets
@@ -27,7 +27,8 @@ public class AssetManager {
     // This is run at class loading time (before any statics created)
     static {
         images.put("flame", ImageService.getImage("flame.png", 18, 37));
-       // images.put("explosion", ImageService.getImage("explosion.", 40, 40));
+        images.put("explosion", ImageService.getImage("explosion.png", 40, 40));
+        images.put("explosion2", ImageService.getImage("explosion2.png", 40, 40));
         images.put("background", ImageService.getImage("background.png", WIDTH, HEIGHT, false));
         sounds.put("rocket", SoundService.getSound("rocket.wav"));
         sounds.put("explosion1", SoundService.getSound("explosion1.wav"));
