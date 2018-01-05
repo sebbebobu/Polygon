@@ -106,7 +106,7 @@ public class SpaceInvGUI extends Application {
             IDrawable a = (IDrawable) evt.data;
             renderExplosion(a.getMinX(), a.getMinY());
             System.out.print("Git gud");
-
+            running = false;
         }
     }
 

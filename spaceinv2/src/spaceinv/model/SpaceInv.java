@@ -70,7 +70,7 @@ public class SpaceInv {
                     amoAdding.add(b);
                 }
                 if(ground.intersects(m)) {
-                    EventService.add(new EventService.SIEvent(Type.SHIP_HIT_GROUND,null));
+                    EventService.add(new EventService.SIEvent(Type.SHIP_HIT_GROUND,m));
                 }
                 else{
                     if(timer < 60){
@@ -107,11 +107,11 @@ public class SpaceInv {
             else if(m instanceof Bomb)
             {
                 if(ground.intersects(m)) {
-                    EventService.add(new EventService.SIEvent(Type.BOMB_HIT_GROUND,null));
+                    EventService.add(new EventService.SIEvent(Type.BOMB_HIT_GROUND,m));
                     amoRemoval.add(m);
                 }
                 else if(gun.intersect(m)){
-                    EventService.add(new EventService.SIEvent(Type.BOMB_HIT_GUN,null));
+                    EventService.add(new EventService.SIEvent(Type.BOMB_HIT_GUN,m));
                     amoRemoval.add(m);
                 }
                 else
@@ -119,18 +119,18 @@ public class SpaceInv {
             }
             else if(m instanceof Rocket)
             {
-                Rocket r = (Rocket) m;
                 for (AbstractMovableObject ab: movables) {
                     if(ab instanceof EnemyShip){
-                        if(r.intersect(ab))
+                        if(m.intersect(ab))
                         {
+                            EventService.add(new EventService.SIEvent(Type.ROCKET_HIT_SHIP,m));
                             points += 100;
                             amoRemoval.add(ab);
                             amoRemoval.add(m);
                             rocketFlying = false;
                         }
                     }
-                    if(outerSpace.intersect(r))
+                    if(outerSpace.intersect(m))
                     {
                         amoRemoval.add(m);
                         rocketFlying = false;
@@ -152,7 +152,7 @@ public class SpaceInv {
             Rocket r = gun.fire();
             movables.add(r);
             rocketFlying = !rocketFlying;
-            EventService.add(new EventService.SIEvent(Type.ROCKET_LAUNCHED, null));
+            EventService.add(new EventService.SIEvent(Type.ROCKET_LAUNCHED, r));
         }
     }
 
