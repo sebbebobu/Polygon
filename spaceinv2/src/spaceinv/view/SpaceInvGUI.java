@@ -7,10 +7,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.CheckMenuItem;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -44,7 +41,7 @@ import static spaceinv.service.EventService.SIEvent;
 public class SpaceInvGUI extends Application {
     private SpaceInv spaceInv;          // The game
     private boolean running = false;    // Is game running?
-
+    public Alert alert = new Alert(Alert.AlertType.INFORMATION);
     // ------- Keyboard handling ----------------------------------
 
     private void keyPressed(KeyEvent event) {
@@ -76,6 +73,7 @@ public class SpaceInvGUI extends Application {
 
     private void keyReleased(KeyEvent event) {
         if (!running) {
+            spaceInv.getGun().setDx(0);
             return;
         }
         KeyCode kc = event.getCode();
@@ -105,7 +103,14 @@ public class SpaceInvGUI extends Application {
         } else if (evt.type == EventService.Type.BOMB_HIT_GUN || evt.type == EventService.Type.SHIP_HIT_GROUND) {
             IDrawable a = (IDrawable) evt.data;
             renderExplosion(a.getMinX(), a.getMinY());
-            System.out.print("Git gud");
+/* // TODO
+            alert.setTitle("GAME OVER");
+            if(evt.type == EventService.Type.BOMB_HIT_GUN)
+                alert.setHeaderText("A BOMB HIT YOUR GUN");
+            else
+                alert.setHeaderText("A SHIP REACHED THE GROUND");
+            alert.setContentText("Better luck next time!");
+*/
             running = false;
         }
     }

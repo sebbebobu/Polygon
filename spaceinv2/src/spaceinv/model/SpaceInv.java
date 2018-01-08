@@ -13,7 +13,6 @@ import java.util.Random;
 
 import static spaceinv.service.EventService.Type;
 
-
 /*
  * Logic for the SpaceInv Game
  * Model class representing the "overall" game logic
@@ -71,6 +70,8 @@ public class SpaceInv {
                 }
                 if(ground.intersects(m)) {
                     EventService.add(new EventService.SIEvent(Type.SHIP_HIT_GROUND,m));
+                    amoRemoval.add(m);
+                    amoRemoval.add(gun);
                 }
                 else{
                     if(timer < 60){
@@ -113,6 +114,7 @@ public class SpaceInv {
                 else if(gun.intersect(m)){
                     EventService.add(new EventService.SIEvent(Type.BOMB_HIT_GUN,m));
                     amoRemoval.add(m);
+                    amoRemoval.add(gun);
                 }
                 else
                     m.move();
